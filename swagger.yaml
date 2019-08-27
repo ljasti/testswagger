@@ -1,0 +1,517 @@
+swagger: '2.0'
+info:
+  description: Documentation OW-MANAGEMENT API v1
+  version: '1'
+  title: OW-MANAGEMENT API
+  contact:
+    name: Sarvesh Padwal
+    url: 'https://www.roche.com'
+    email: sarvesh.padwal@contractors.roche.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+
+paths:
+  /v1/user:
+    get:
+      tags:
+        - User CRUD API
+      summary: Get a list of Users
+      operationId: getAllUsersUsingGET
+      produces:
+        - '*/*'
+        - application/json
+      responses:
+        '200':
+          description: Successfully retrieved the list of users
+          schema:
+            originalRef: ResponseListUserDto
+            $ref: '#/definitions/ResponseListUserDto'
+        '401':
+          description: You are not authorized to view the resource
+        '403':
+          description: Accessing the resource you were trying to reach is forbidden
+        '404':
+          description: The resource you were trying to reach is not found
+      deprecated: false
+      x-amazon-apigateway-integration:
+          uri: ${uri_arn}
+          passthroughBehavior: "when_no_match"
+          httpMethod: "GET"
+          type: "http"
+#  /v1/user:          
+    post:
+      tags:
+        - User CRUD API
+      summary: Create an User
+      operationId: createUserUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+        - application/json
+      parameters:
+        - in: body
+          name: userDto
+          description: user object store in database table
+          required: true
+          schema:
+            originalRef: UserDto
+            $ref: '#/definitions/UserDto'
+      responses:
+        '200':
+          description: OK
+          schema:
+            originalRef: ResponseUserDto
+            $ref: '#/definitions/ResponseUserDto'
+        '201':
+          description: User created successfully
+          schema:
+            originalRef: ResponseUserDto
+            $ref: '#/definitions/ResponseUserDto'
+        '401':
+          description: You are not authorized to perform this action on the resource
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+      x-amazon-apigateway-integration:
+          uri: ${uri_arn}
+          passthroughBehavior: "when_no_match"
+          httpMethod: "POST"
+          type: "http" 
+  /v1/user:     
+    put:
+      tags:
+        - User CRUD API
+      summary: Update an User
+      operationId: updateUserUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+        - application/json
+      parameters:
+        - in: body
+          name: userDto
+          description: Update user object
+          required: true
+          schema:
+            originalRef: UserDto
+            $ref: '#/definitions/UserDto'
+      responses:
+        '200':
+          description: User updated successfully
+          schema:
+            originalRef: ResponseUserDto
+            $ref: '#/definitions/ResponseUserDto'
+        '201':
+          description: Created
+        '401':
+          description: You are not authorized to perform this action on the resource
+        '403':
+          description: Forbidden
+        '404':
+          description: The resource you were trying to update is not found
+      deprecated: false
+      x-amazon-apigateway-integration:
+          uri: ${uri_arn}
+          passthroughBehavior: "when_no_match"
+          httpMethod: "PUT"
+          type: "http"
+  /v1/user/profile:
+    post:
+      tags:
+        - User Profile CRUD API
+      summary: Create an user profile
+      operationId: createUserUsingPOST_1
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+        - application/json
+      parameters:
+        - in: body
+          name: userProfileDto
+          description: Store user profile in database
+          required: true
+          schema:
+            originalRef: UserProfileDto
+            $ref: '#/definitions/UserProfileDto'
+      responses:
+        '200':
+          description: OK
+          schema:
+            originalRef: ResponseUserProfileDto
+            $ref: '#/definitions/ResponseUserProfileDto'
+        '201':
+          description: User created successfully
+          schema:
+            originalRef: ResponseUserProfileDto
+            $ref: '#/definitions/ResponseUserProfileDto'
+        '401':
+          description: You are not authorized to perform this action on the resource
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+      x-amazon-apigateway-integration:
+          uri: ${uri_arn}
+          passthroughBehavior: "when_no_match"
+          httpMethod: "POST"
+          type: "http"
+#  /v1/user/profile:
+    put:
+      tags:
+        - User Profile CRUD API
+      summary: Update an user profile
+      operationId: updateUserProfileUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+        - application/json
+      parameters:
+        - in: body
+          name: userProfileDto
+          description: Update user profile
+          required: true
+          schema:
+            originalRef: UserProfileDto
+            $ref: '#/definitions/UserProfileDto'
+      responses:
+        '200':
+          description: User Profile updated successfully
+          schema:
+            originalRef: ResponseUserProfileDto
+            $ref: '#/definitions/ResponseUserProfileDto'
+        '201':
+          description: Created
+        '401':
+          description: You are not authorized to perform this action on the resource
+        '403':
+          description: Forbidden
+        '404':
+          description: The resource you were trying to update is not found
+      deprecated: false
+      x-amazon-apigateway-integration:
+          uri: ${uri_arn}
+          passthroughBehavior: "when_no_match"
+          httpMethod: "PUT"
+          type: "http"
+  '/v1/user/{id}':
+    get:
+      tags:
+        - User CRUD API
+      summary: Get an User by Id
+      operationId: getUserByIdUsingGET
+      produces:
+        - '*/*'
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: User id from which user object will retrieve
+          required: true
+          type: integer
+          format: int32
+          x-example: 2
+      responses:
+        '200':
+          description: Successfully retrieved the user details
+          schema:
+            originalRef: ResponseUserDto
+            $ref: '#/definitions/ResponseUserDto'
+        '401':
+          description: You are not authorized to view the resource
+        '403':
+          description: Accessing the resource you were trying to reach is forbidden
+        '404':
+          description: The resource you were trying to reach is not found
+      deprecated: false
+      x-amazon-apigateway-integration:
+          uri: ${uri_arn}
+          passthroughBehavior: "when_no_match"
+          httpMethod: "GET"
+          type: "http"
+#  '/v1/user/{id}':
+    delete:
+      tags:
+        - User CRUD API
+      summary: Delete an User
+      operationId: deleteUserUsingDELETE
+      produces:
+        - '*/*'
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: User Id from which user object will delete from database table
+          required: true
+          type: integer
+          format: int32
+          x-example: 2
+      responses:
+        '200':
+          description: User deleted successfully
+          schema:
+            originalRef: Response
+            $ref: '#/definitions/Response'
+        '204':
+          description: No Content
+        '401':
+          description: You are not authorized to perform this action on the resource
+        '403':
+          description: Forbidden
+        '404':
+          description: The resource you were trying to delete is not found
+      deprecated: false
+      x-amazon-apigateway-integration:
+          uri: ${uri_arn}
+          passthroughBehavior: "when_no_match"
+          httpMethod: "DELETE"
+          type: "http"
+  '/v1/user/{id}/profile':
+    get:
+      tags:
+        - User Profile CRUD API
+      summary: Get an user profile by user id
+      operationId: getUserProfileUsingGET
+      produces:
+        - '*/*'
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: User id from which user profile object will retrieve
+          required: true
+          type: integer
+          format: int32
+          x-example: 2
+      responses:
+        '200':
+          description: Successfully retrieved the user profile
+          schema:
+            originalRef: ResponseUserProfileDto
+            $ref: '#/definitions/ResponseUserProfileDto'
+        '401':
+          description: You are not authorized to view the resource
+        '403':
+          description: Accessing the resource you were trying to reach is forbidden
+        '404':
+          description: The resource you were trying to reach is not found
+      deprecated: false
+      x-amazon-apigateway-integration:
+          uri: ${uri_arn}
+          passthroughBehavior: "when_no_match"
+          httpMethod: "GET"
+          type: "http"
+definitions:
+  OwError:
+    type: object
+    properties:
+      code:
+        type: string
+        description: Service Error Code
+      message:
+        type: string
+        description: Service Error Message
+      target:
+        type: string
+        description: Error's whereabouts
+    title: OwError
+  Response:
+    type: object
+    properties:
+      status:
+        type: string
+        description: Status of API call
+        enum:
+          - SUCCESS
+          - FAIL
+          - CLIENT_ERROR
+      code:
+        type: integer
+        format: int32
+        description: Http Status Code
+      data:
+        type: object
+        description: Response Payload
+      errors:
+        type: array
+        description: Errors
+        items:
+          originalRef: OwError
+          $ref: '#/definitions/OwError'
+    title: Response
+    description: API Response
+  ResponseListUserDto:
+    type: object
+    properties:
+      status:
+        type: string
+        description: Status of API call
+        enum:
+          - SUCCESS
+          - FAIL
+          - CLIENT_ERROR
+      code:
+        type: integer
+        format: int32
+        description: Http Status Code
+      data:
+        type: array
+        description: Response Payload
+        items:
+          originalRef: UserDto
+          $ref: '#/definitions/UserDto'
+      errors:
+        type: array
+        description: Errors
+        items:
+          originalRef: OwError
+          $ref: '#/definitions/OwError'
+    title: ResponseListUserDto
+    description: API Response
+  ResponseUserDto:
+    type: object
+    properties:
+      status:
+        type: string
+        description: Status of API call
+        enum:
+          - SUCCESS
+          - FAIL
+          - CLIENT_ERROR
+      code:
+        type: integer
+        format: int32
+        description: Http Status Code
+      data:
+        description: Response Payload
+        originalRef: UserDto
+        $ref: '#/definitions/UserDto'
+      errors:
+        type: array
+        description: Errors
+        items:
+          originalRef: OwError
+          $ref: '#/definitions/OwError'
+    title: ResponseUserDto
+    description: API Response
+  ResponseUserProfileDto:
+    type: object
+    properties:
+      status:
+        type: string
+        description: Status of API call
+        enum:
+          - SUCCESS
+          - FAIL
+          - CLIENT_ERROR
+      code:
+        type: integer
+        format: int32
+        description: Http Status Code
+      data:
+        description: Response Payload
+        originalRef: UserProfileDto
+        $ref: '#/definitions/UserProfileDto'
+      errors:
+        type: array
+        description: Errors
+        items:
+          originalRef: OwError
+          $ref: '#/definitions/OwError'
+    title: ResponseUserProfileDto
+    description: API Response
+  RoleDto:
+    type: object
+    properties:
+      id:
+        type: string
+        description: The id of the role
+      name:
+        type: string
+        description: The name of the role
+    title: RoleDto
+    description: 'All details about the role. '
+  UserDto:
+    type: object
+    properties:
+      id:
+        type: string
+        description: The uuid of the user
+      firstName:
+        type: string
+        description: The first name of the user
+      middleName:
+        type: string
+        description: The middle name of the user
+      lastName:
+        type: string
+        description: The last name of the user
+      email:
+        type: string
+        description: The email id of the user
+      salutation:
+        type: string
+        description: The salutation of the user
+      roles:
+        type: array
+        description: The role details of the user
+        items:
+          originalRef: RoleDto
+          $ref: '#/definitions/RoleDto'
+    title: UserDto
+    description: All details about the user.
+  UserProfileDto:
+    type: object
+    properties:
+      id:
+        type: string
+        description: The uuid of the user
+      phone:
+        type: string
+        description: The phone number of the user
+      mobile:
+        type: string
+        description: The mobile number of the user
+      fax:
+        type: string
+        description: The fax of the user
+      preferredComm:
+        type: string
+        description: The preferred communication of the user
+      address:
+        type: string
+        description: The address of the user
+      city:
+        type: string
+        description: The city of the user
+      state:
+        type: string
+        description: The state of the user
+      country:
+        type: string
+        description: The country of the user
+      postalCode:
+        type: string
+        description: The postal code of the user
+      timezone:
+        type: string
+        description: The timezone of the user
+      lang:
+        type: string
+        description: The lang of the user
+      numberFormat:
+        type: string
+        description: The number format of the user
+      dateFormat:
+        type: string
+        description: The date format of the user
+    title: UserProfileDto
+    description: 'All details about the user profile. '
+
